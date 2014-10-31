@@ -8,7 +8,12 @@ import java.util.Random;
 public class InsertionSort {
 
     public static void main(String[] args) {
-
+        int[] testArray = fillArray(1000);
+        long startTime = System.nanoTime();
+        insertionSort(testArray);
+        System.out.println(Arrays.toString(testArray));
+        long endTime = System.nanoTime();
+        System.out.println("Total execution time: " + (endTime - startTime) + "ns");
     }
 
     public static void insertionSort(int[] arrayToSort) {
@@ -24,7 +29,12 @@ public class InsertionSort {
     }
 
     public static int[] fillArray(int size) {
-
+        Random generator = new Random();
+        int[] returnArray = new int[size];
+        for (int i = 0; i < size; i++) {
+            returnArray[i] = generator.nextInt(size);
+        }
+        return returnArray;
     }
 
 }
