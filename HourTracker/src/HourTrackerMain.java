@@ -16,7 +16,12 @@ public class HourTrackerMain {
         int addedMins = addHoursOrMinsFromTwoWeeks(hoursMinutesWeekOne, hoursMinutesWeekTwo, false);
         addedHours += convertMinsToHours(addedHours, addedMins);
         int convertedMins = leftOverMinutes(addedMins);
-        System.out.printf("Your hours and minutes for 2 weeks: %d:%d", addedHours, convertedMins);
+        if (convertedMins >= 10) {
+            System.out.printf("Your hours and minutes for 2 weeks: %d:%d", addedHours, convertedMins);
+        } else {
+            System.out.printf("Your hours and minutes for 2 weeks: %d:0%d", addedHours, convertedMins);
+        }
+
 
     }
 
