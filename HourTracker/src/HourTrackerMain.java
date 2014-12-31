@@ -16,12 +16,9 @@ public class HourTrackerMain {
         int addedMins = addHoursOrMinsFromTwoWeeks(hoursMinutesWeekOne, hoursMinutesWeekTwo, false);
         addedHours += convertMinsToHours(addedHours, addedMins);
         int convertedMins = leftOverMinutes(addedMins);
-        if (convertedMins >= 10) {
-            System.out.printf("Your hours and minutes for 2 weeks: %d:%d", addedHours, convertedMins);
-        } else {
-            System.out.printf("Your hours and minutes for 2 weeks: %d:0%d", addedHours, convertedMins);
-        }
-
+        double decimalTime = hoursToDecimals(addedHours, convertedMins);
+        System.out.printf("Your time in decimal format is %.2f", decimalTime);
+        writeToFile();
 
     }
 
@@ -61,9 +58,37 @@ public class HourTrackerMain {
         return leftOver;
     }
 
+    public static void printHoursAndMinutes(int hours, int mins) {
+        if (mins >= 10) {
+            System.out.printf("Your hours and minutes for 2 weeks: %d:%d", hours, mins);
+        } else {
+            System.out.printf("Your hours and minutes for 2 weeks: %d:0%d", hours, mins);
+        }
+    }
 
-    /*public static double hoursToDecimals() {
 
-    }*/
+    public static double hoursToDecimals(int hours, int mins) {
+        double convertedTime = hours;
+        double minsDec = mins / 60.0;
+        convertedTime += minsDec;
+        return convertedTime;
+    }
+
+    public static void writeToFile() {
+        File logHours = new File("logHours.txt");
+        try {
+            if(!logHours.exists()) {
+                System.out.println("Had to create a new file!");
+                logHours.createNewFile();
+            }
+            FileWriter fw = new FileWriter(logHours, true);
+            BufferedWriter bufferedWriter = new BufferedWriter(fw);
+            bufferedWriter.write("hello");
+
+        } catch (IOException exc) {
+            System.out.println("Could not write to file");
+        }
+
+    }
 
 }
