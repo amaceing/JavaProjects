@@ -2,6 +2,9 @@
  * Created by anthonymace on 12/31/14.
  */
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Scanner;
 import java.io.*;
 
@@ -14,11 +17,11 @@ public class HourTrackerMain {
         int[] hoursMinutesWeekTwo = getHoursFromWeek("two");
         int addedHours = addHoursOrMinsFromTwoWeeks(hoursMinutesWeekOne, hoursMinutesWeekTwo, true);
         int addedMins = addHoursOrMinsFromTwoWeeks(hoursMinutesWeekOne, hoursMinutesWeekTwo, false);
-        addedHours += convertMinsToHours(addedHours, addedMins);
+        addedHours = convertMinsToHours(addedHours, addedMins);
         int convertedMins = leftOverMinutes(addedMins);
         double decimalTime = hoursToDecimals(addedHours, convertedMins);
         System.out.printf("Your time in decimal format is %.2f", decimalTime);
-        writeToFile();
+        writeToFile(addedHours, convertedMins);
 
     }
 
@@ -51,11 +54,10 @@ public class HourTrackerMain {
     }
 
     public static int leftOverMinutes(int mins) {
-        int leftOver = 0;
         if (mins >= 60) {
-            leftOver = mins - 60;
+            mins -= 60;
         }
-        return leftOver;
+        return mins;
     }
 
     public static void printHoursAndMinutes(int hours, int mins) {
@@ -74,21 +76,24 @@ public class HourTrackerMain {
         return convertedTime;
     }
 
-    public static void writeToFile() {
+    public static void writeToFile(int hours, int mins) {
         File logHours = new File("logHours.txt");
+        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        Date date = new Date();
         try {
-            if(!logHours.exists()) {
-                System.out.println("Had to create a new file!");
-                logHours.createNewFile();
-            }
             FileWriter fw = new FileWriter(logHours, true);
             BufferedWriter bufferedWriter = new BufferedWriter(fw);
-            bufferedWriter.write("hello");
-
+            bufferedWriter.write(dateFormat.format(date));
+            bufferedWriter.write("\n");
+            if (mins >= 10) {
+                bufferedWriter.write("Your hours and minutes from 2 week pay period: " + hours + ":" + mins);
+            } else {
+                bufferedWriter.write("Your hours and minutes from 2 week pay period: " + hours + ":0" + mins);
+            }
+            bufferedWriter.write("\n");
+            bufferedWriter.close();
         } catch (IOException exc) {
             System.out.println("Could not write to file");
         }
-
     }
-
 }
