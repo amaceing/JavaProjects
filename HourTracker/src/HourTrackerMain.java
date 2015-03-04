@@ -17,13 +17,8 @@ public class HourTrackerMain {
         String weekTwoHours = getHoursFromWeekTest("two");
         int[] hoursMinutesWeek1 = parseHoursAndMinutesString(weekOneHours);
         int[] hoursMinutesWeek2 = parseHoursAndMinutesString(weekTwoHours);
-
-
-
-        int[] hoursMinutesWeekOne = getHoursFromWeek("one");
-        int[] hoursMinutesWeekTwo = getHoursFromWeek("two");
-        int addedHours = addHoursOrMinsFromTwoWeeks(hoursMinutesWeekOne, hoursMinutesWeekTwo, true);
-        int addedMins = addHoursOrMinsFromTwoWeeks(hoursMinutesWeekOne, hoursMinutesWeekTwo, false);
+        int addedHours = addHoursOrMinsFromTwoWeeks(hoursMinutesWeek1, hoursMinutesWeek2, true);
+        int addedMins = addHoursOrMinsFromTwoWeeks(hoursMinutesWeek1, hoursMinutesWeek2, false);
         addedHours = convertMinsToHours(addedHours, addedMins);
         int convertedMins = leftOverMinutes(addedMins);
         double decimalTime = hoursToDecimals(addedHours, convertedMins);
