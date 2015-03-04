@@ -110,6 +110,7 @@ public class HourTrackerMain {
                 bufferedWriter.write("Your hours and minutes from 2 week pay period: " + hours + ":0" + mins);
             }
             bufferedWriter.write("\n");
+            bufferedWriter.write("\n");
             bufferedWriter.close();
         } catch (IOException exc) {
             System.out.println("Could not write to file");
