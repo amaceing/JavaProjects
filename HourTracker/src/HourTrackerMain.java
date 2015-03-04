@@ -13,6 +13,13 @@ public class HourTrackerMain {
     public static Scanner console = new Scanner(System.in);
 
     public static void main(String[] args) {
+        String weekOneHours = getHoursFromWeekTest("one");
+        String weekTwoHours = getHoursFromWeekTest("two");
+        int[] hoursMinutesWeek1 = parseHoursAndMinutesString(weekOneHours);
+        int[] hoursMinutesWeek2 = parseHoursAndMinutesString(weekTwoHours);
+
+
+
         int[] hoursMinutesWeekOne = getHoursFromWeek("one");
         int[] hoursMinutesWeekTwo = getHoursFromWeek("two");
         int addedHours = addHoursOrMinsFromTwoWeeks(hoursMinutesWeekOne, hoursMinutesWeekTwo, true);
@@ -23,6 +30,23 @@ public class HourTrackerMain {
         System.out.printf("Your time in decimal format is %.2f", decimalTime);
         writeToFile(addedHours, convertedMins);
 
+    }
+
+    public static String getHoursFromWeekTest(String weekNumber) {
+        String hoursAndMinutes = "";
+        System.out.printf("Enter your hours from week %s: ", weekNumber);
+        hoursAndMinutes = console.nextLine();
+        return hoursAndMinutes;
+    }
+
+    public static int[] parseHoursAndMinutesString(String hoursAndMinutes) {
+        int[] hoursMinutes = new int[2];
+        String[] hoursAndMinutesSplit = hoursAndMinutes.split(":");
+        int hours = Integer.parseInt(hoursAndMinutesSplit[0]);
+        int minutes = Integer.parseInt(hoursAndMinutesSplit[1]);
+        hoursMinutes[0] = hours;
+        hoursMinutes[1] = minutes;
+        return hoursMinutes;
     }
 
     public static int[] getHoursFromWeek(String weekNumber) {
