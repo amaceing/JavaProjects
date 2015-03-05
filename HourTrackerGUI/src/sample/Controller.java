@@ -3,12 +3,20 @@ package sample;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class Controller {
 
     public TextField week1Hours;
     public TextField week2Hours;
     public Label hourTotal;
+    public Label toFile;
 
     public void calcHours(ActionEvent actionEvent) {
         String week1 = week1Hours.getText();
@@ -21,6 +29,7 @@ public class Controller {
         int convertedMins = leftOverMinutes(addedMins);
         double decimalTime = hoursToDecimals(addedHours, convertedMins);
         printHours(decimalTime);
+        writeHoursToFile(decimalTime, convertedMins);
     }
 
     public int[] parseHoursAndMinutesString(String hoursAndMinutes) {
@@ -65,5 +74,25 @@ public class Controller {
     public void printHours(double hoursTotal) {
         String hoursString = String.format("Hours total: %.2f", hoursTotal);
         hourTotal.setText(hoursString);
+    }
+
+    public void writeHoursToFile(double hours, int mins) {
+        String formattedHours = String.format("Hours total: %.2f", hours);
+        File logHours = new File("logHours.txt");
+        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        Date date = new Date();
+        try {
+            FileWriter fw = new FileWriter(logHours, true);
+            BufferedWriter bufferedWriter = new BufferedWriter(fw);
+            bufferedWriter.write(dateFormat.format(date));
+            bufferedWriter.write("\n");
+            bufferedWriter.write("Your hours and minutes from 2 week pay period: " + formattedHours);
+            bufferedWriter.write("\n");
+            bufferedWriter.write("\n");
+            bufferedWriter.close();
+            toFile.setText("Wrote hours to logHours.txt");
+        } catch (IOException exc) {
+            toFile.setText("Could not write hours to file");
+        }
     }
 }

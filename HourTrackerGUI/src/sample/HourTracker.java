@@ -122,8 +122,4 @@ public class HourTracker {
             System.out.println("Could not write to file");
         }
     }
-
-
-
-
 }

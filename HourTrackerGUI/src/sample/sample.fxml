@@ -21,6 +21,7 @@
     <TextField fx:id="week2Hours" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
     <Button text="Calculate your hours" onAction="#calcHours"
             GridPane.columnIndex="0" GridPane.rowIndex="3" GridPane.columnSpan="2"/>
-    <Label fx:id="hourTotal" GridPane.columnIndex="0" GridPane.rowIndex="4" GridPane.columnSpan="2"/>
+    <Label fx:id="hourTotal" GridPane.columnIndex="0" GridPane.rowIndex="4" GridPane.columnSpan="1"/>
+    <Label fx:id="toFile" GridPane.columnIndex="0" GridPane.rowIndex="5"/>
 
 </GridPane>
