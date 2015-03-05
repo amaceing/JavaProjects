@@ -1,12 +1,14 @@
 package sample;
 
 import javafx.event.ActionEvent;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
 public class Controller {
 
     public TextField week1Hours;
     public TextField week2Hours;
+    public Label hourTotal;
 
     public void calcHours(ActionEvent actionEvent) {
         String week1 = week1Hours.getText();
@@ -18,6 +20,7 @@ public class Controller {
         addedHours = convertMinsToHours(addedHours, addedMins);
         int convertedMins = leftOverMinutes(addedMins);
         double decimalTime = hoursToDecimals(addedHours, convertedMins);
+        printHours(decimalTime);
     }
 
     public int[] parseHoursAndMinutesString(String hoursAndMinutes) {
@@ -57,5 +60,10 @@ public class Controller {
         double minsDec = mins / 60.0;
         convertedTime += minsDec;
         return convertedTime;
+    }
+
+    public void printHours(double hoursTotal) {
+        String hoursString = String.format("Hours total: %.2f", hoursTotal);
+        hourTotal.setText(hoursString);
     }
 }
