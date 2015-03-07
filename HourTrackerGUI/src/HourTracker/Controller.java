@@ -3,6 +3,8 @@ package HourTracker;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.text.Text;
+
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -17,10 +19,14 @@ public class Controller {
     public TextField week2Hours;
     public Label hourTotal;
     public Label toFile;
+    public Text title;
 
     public void calcHours(ActionEvent actionEvent) {
         String week1 = week1Hours.getText();
         String week2 = week2Hours.getText();
+        while (week1.length() == 0 || week2.length() == 0) {
+            Alert alertBox = new Alert(AlertType.INFORMATION);
+        }
         int[] hoursMinutesWeek1 = parseHoursAndMinutesString(week1);
         int[] hoursMinutesWeek2 = parseHoursAndMinutesString(week2);
         int addedHours = addHoursOrMinsFromTwoWeeks(hoursMinutesWeek1, hoursMinutesWeek2, true);
