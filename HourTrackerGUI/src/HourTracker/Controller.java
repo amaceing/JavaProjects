@@ -1,6 +1,7 @@
 package HourTracker;
 
 import javafx.event.ActionEvent;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
@@ -24,8 +25,12 @@ public class Controller {
     public void calcHours(ActionEvent actionEvent) {
         String week1 = week1Hours.getText();
         String week2 = week2Hours.getText();
-        while (week1.length() == 0 || week2.length() == 0) {
-            Alert alertBox = new Alert(AlertType.INFORMATION);
+        if (week1.length() == 0 || week2.length() == 0) {
+            Alert alertBox = new Alert(Alert.AlertType.INFORMATION);
+            alertBox.setTitle("Information Dialog");
+            alertBox.setHeaderText(null);
+            alertBox.setContentText("Make sure input fields have text!");
+            alertBox.showAndWait();
         }
         int[] hoursMinutesWeek1 = parseHoursAndMinutesString(week1);
         int[] hoursMinutesWeek2 = parseHoursAndMinutesString(week2);
