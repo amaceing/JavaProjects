@@ -22,29 +22,27 @@ public class Controller {
     public Label toFile;
     public Text title;
 
-    public void calcHours(ActionEvent actionEvent) {
+    public void calculateHours(ActionEvent actionEvent) {
         String week1 = week1Hours.getText();
         String week2 = week2Hours.getText();
-        while (week1.length() == 0 || week2.length() == 0) {
-            if (week1.length() == 0 || week2.length() == 0) {
-                Alert alertBox = new Alert(Alert.AlertType.INFORMATION);
-                alertBox.setTitle("Information Dialog");
-                alertBox.setHeaderText(null);
-                alertBox.setContentText("Make sure input fields have text!");
-                alertBox.showAndWait();
-            } else {
-                week1 = week1Hours.getText();
-                week2 = week2Hours.getText();
-                int[] hoursMinutesWeek1 = parseHoursAndMinutesString(week1);
-                int[] hoursMinutesWeek2 = parseHoursAndMinutesString(week2);
-                int addedHours = addHoursOrMinsFromTwoWeeks(hoursMinutesWeek1, hoursMinutesWeek2, true);
-                int addedMins = addHoursOrMinsFromTwoWeeks(hoursMinutesWeek1, hoursMinutesWeek2, false);
-                addedHours = convertMinsToHours(addedHours, addedMins);
-                int convertedMins = leftOverMinutes(addedMins);
-                double decimalTime = hoursToDecimals(addedHours, convertedMins);
-                printHours(decimalTime);
-                writeHoursToFile(decimalTime, convertedMins);
-            }
+        if (week1.length() == 0 || week2.length() == 0) {
+            Alert alertBox = new Alert(Alert.AlertType.INFORMATION);
+            alertBox.setTitle("Information Dialog");
+            alertBox.setHeaderText(null);
+            alertBox.setContentText("Make sure input fields have text!");
+            alertBox.showAndWait();
+        } else {
+            week1 = week1Hours.getText();
+            week2 = week2Hours.getText();
+            int[] hoursMinutesWeek1 = parseHoursAndMinutesString(week1);
+            int[] hoursMinutesWeek2 = parseHoursAndMinutesString(week2);
+            int addedHours = addHoursOrMinsFromTwoWeeks(hoursMinutesWeek1, hoursMinutesWeek2, true);
+            int addedMins = addHoursOrMinsFromTwoWeeks(hoursMinutesWeek1, hoursMinutesWeek2, false);
+            addedHours = convertMinsToHours(addedHours, addedMins);
+            int convertedMins = leftOverMinutes(addedMins);
+            double decimalTime = hoursToDecimals(addedHours, convertedMins);
+            printHours(decimalTime);
+            writeHoursToFile(decimalTime, convertedMins);
         }
     }
 
@@ -110,37 +108,5 @@ public class Controller {
         } catch (IOException exc) {
             toFile.setText("Could not write hours to file");
         }
-    }
-
-    public void calculateHours(ActionEvent actionEvent) {
-        String week1 = week1Hours.getText();
-        String week2 = week2Hours.getText();
-        if (week1.length() == 0 || week2.length() == 0) {
-            Alert alertBox = new Alert(Alert.AlertType.INFORMATION);
-            alertBox.setTitle("Information Dialog");
-            alertBox.setHeaderText(null);
-            alertBox.setContentText("Make sure input fields have text!");
-            alertBox.showAndWait();
-        } else {
-            week1 = week1Hours.getText();
-            week2 = week2Hours.getText();
-            int[] hoursMinutesWeek1 = parseHoursAndMinutesString(week1);
-            int[] hoursMinutesWeek2 = parseHoursAndMinutesString(week2);
-            int addedHours = addHoursOrMinsFromTwoWeeks(hoursMinutesWeek1, hoursMinutesWeek2, true);
-            int addedMins = addHoursOrMinsFromTwoWeeks(hoursMinutesWeek1, hoursMinutesWeek2, false);
-            addedHours = convertMinsToHours(addedHours, addedMins);
-            int convertedMins = leftOverMinutes(addedMins);
-            double decimalTime = hoursToDecimals(addedHours, convertedMins);
-            printHours(decimalTime);
-            writeHoursToFile(decimalTime, convertedMins);
-        }
-    }
-
-    public void printString(ActionEvent actionEvent) {
-        String week1 = week1Hours.getText();
-        String week2 = week2Hours.getText();
-        System.out.println(week1);
-        System.out.println(week2);
-
     }
 }
